@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery ajax POST sample</title>
+<meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#ajax_btn").click(function ajaxpost() {
+			var formData = {
+				name : "日本語文字列入お名前",
+				age : "31"
+			}; //Array 
+
+			$.ajax({
+				url : "test/1/",
+				type : "POST",
+				data : JSON.stringify(formData),
+				contentType : 'application/json;charset=UTF-8', // リクエストの Content-Type
+				dataType : "json", // レスポンスをJSONとしてパースする
+				success : function(data, textStatus, jqXHR) {
+					//data - response from server
+					console.log(data);
+					$("#ajax_result_msg").text(data.name);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					$("#ajax_result_msg").text("サーバからの取得処理に失敗しました。");
+				}
+			});
+		});
+	});
+</script>
+</head>
+
+<body>
+	<br />
+	<p>サーバからの日本語を含む文字列結果</p>
+	<p id="ajax_result_msg">サーバからの取得処理が実行されていません。ボタンを押してください。</p>
+	<input id="ajax_btn" type="button" value="押す" />
+</body>
+</html>
